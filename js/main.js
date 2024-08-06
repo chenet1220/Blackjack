@@ -42,15 +42,17 @@
     render();
   }
 
+
   
   function render() {
 
   }
 
-  
+  function newGame() {
+    init();
+  }
 
-
-    function getNewShuffledDeck() {
+  function getNewShuffledDeck() {
     // Create a copy of the originalDeck (leave originalDeck untouched!)
     const tempDeck = [...originalDeck];
     const newShuffledDeck = [];
