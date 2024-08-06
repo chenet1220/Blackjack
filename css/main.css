@@ -1,4 +1,10 @@
 
+body {
+    background-image: url(https://www.crushpixel.com/big-static18/preview4/cards-poker-chips-on-green-3031477.jpg);
+    background-size: cover; /* Optional: Ensures the image covers the whole background */
+    background-repeat: no-repeat; /* Optional: Prevents the image from repeating */
+    background-position: center; /* Optional: Centers the image */
+}
 
 
 h1, h2, h3, h4, h5, h6, p{
@@ -54,7 +60,7 @@ button{
     margin: 30px;
 }
 
-.background{
+/*.background{
     display: none;
     justify-content: center;
     align-items: center;
@@ -64,7 +70,7 @@ button{
     top: 0;
     left: 0;
     background:rgba(0, 0, 0, 0.5);
-}
+}*/
 
 .notice{
     height: fit-content;
