@@ -1,4 +1,4 @@
-/*----- constants -----*/
+  /*----- constants -----*/
 const cardSuits = ['s', 'c', 'd', 'h']; // Spades, Clubs, Diamonds, Hearts
 const cardIndex = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
 const blackjack = 21;
@@ -12,6 +12,7 @@ let playerScore = 0;
 let dealerScore = 0;
 let playerBalance = 1000;
 let currentBet = 0;
+
 /*----- cached elements -----*/
 const playerHandElement = document.getElementById('player-hand');
 const dealerHandElement = document.getElementById('dealer-hand');
@@ -23,7 +24,8 @@ const newGameButton = document.getElementById('new-game-button');
 const hitButton = document.getElementById('hit-button');
 const standButton = document.getElementById('stand-button');
 const placeBetButton = document.getElementById('place-bet-button');
-const messageElement = document.getElementById('message'); // Message element
+const messageElement = document.getElementById('message');
+
 /*----- event listeners -----*/
 newGameButton.addEventListener('click', newGame);
 hitButton.addEventListener('click', hit);
@@ -38,53 +40,37 @@ function init() {
     playerScore = 0;
     dealerScore = 0;
     console.log("Game initialized.");
-    newGame();
-}
-
-function renderDeckInContainer(hand, hideFirstCard = false) {
-    console.log("Hand:");
-    hand.forEach((card, index) => {
-        if (index === 0 && hideFirstCard) {
-            console.log("[Card hidden]");
-        } else {
-            console.log(card.face);
-        }
-    });
+    render(); // Ensure initial render
+    enablePlaceBetButton(); // Enable the button at game start
 }
 
 function render() {
-    renderDeckInContainer(playerHand);
-    renderDeckInContainer(dealerHand, true);
-     renderHands('');
+    renderHands();
+    playerTotalElement.textContent = `Player Total: ${playerScore}`;
+    dealerTotalElement.textContent = `Dealer Total: ${dealerScore}`;
+    balanceElement.textContent = `Balance: $${playerBalance}`;
 }
 
-
 function renderHands() {
-    // Clear current hand displays
     playerHandElement.innerHTML = '';
     dealerHandElement.innerHTML = '';
 
-    // Render player hand
     playerHand.forEach(card => {
-       console.log(card)
         const cardElement = document.createElement('div');
         cardElement.className = `card ${card.face}`;
+        cardElement.textContent = card.face;
         playerHandElement.appendChild(cardElement);
     });
 
-    // Render dealer hand, hide the first card if needed
     dealerHand.forEach((card, index) => {
         const cardElement = document.createElement('div');
         cardElement.className = `card ${card.face}`;
         if (index === 0 && dealerHand.length > 1) {
-            cardElement.classList.add('back'); // Add a class for the back of the card
+            cardElement.classList.add('back');
         }
-         console.log(cardElement)
-        dealerHandElement.appendChild(cardElement);     
+        dealerHandElement.appendChild(cardElement);
     });
-
 }
-
 
 function dealInitialCards() {
     for (let i = 0; i < 2; i++) {
@@ -100,46 +86,77 @@ function updateScores() {
     dealerScore = getScore(dealerHand);
 }
 
+
 function getScore(hand) {
     let score = 0;
-    let hasAce = false;
+    let aceCount = 0;
+
     hand.forEach(card => {
         score += card.value;
-        if (card.face.includes('A')) hasAce = true;
+        if (card.face.includes('A')) aceCount += 1; // Count the number of Aces
     });
-    if (hasAce && score + 10 <= blackjack) score += 10;
+
+    // Adjust for Aces
+    while (aceCount > 0 && score + 10 <= blackjack) {
+        score += 10;
+        aceCount -= 1;
+    }
+
     return score;
 }
 
+
 function newGame() {
     if (currentBet <= 0) {
+        messageElement.textContent = 'Please place a bet before starting a new game.';
         return;
     }
-    deck = getNewShuffledDeck(); // Ensure a new deck is used for each new game
+    deck = getNewShuffledDeck();
     playerHand = [];
     dealerHand = [];
     playerScore = 0;
     dealerScore = 0;
     dealInitialCards();
+    render();
+    messageElement.textContent = '';
+    disablePlaceBetButton(); // Disable the button once a new game starts
+}
+
+function disablePlaceBetButton() {
+    placeBetButton.disabled = true;
+}
+
+function enablePlaceBetButton() {
+    placeBetButton.disabled = false;
 }
 
 
-function placeBet(betAmount) {
-   console.log(betAmount)
+function disableNewGameButton() {
+    newGameButton.disabled = true;
+}
+
+function enableNewGameButton() {
+    newGameButton.disabled = false;
+}
+
+function placeBet() {
+    const betAmount = parseInt(betAmountInput.value);
     if (isNaN(betAmount) || betAmount <= 0 || betAmount > playerBalance) {
-        console.log('InValid bet amount.');
+        messageElement.textContent = 'Invalid bet amount.';
         return;
     }
     currentBet = betAmount;
     playerBalance -= currentBet;
-newGame(); // Start a new game with the placed bet
-}   
+    disablePlaceBetButton(); // Disable the button after placing a bet
+    newGame(); // Start a new game with the placed bet
+}
+
 function hit() {
     playerHand.push(deck.pop());
     updateScores();
     render();
     if (playerScore > blackjack) {
-        console.log('Player busts! Dealer wins.');
+        messageElement.textContent = 'Player busts! Dealer wins.';
         playerBalance -= currentBet;
         endGame();
     }
@@ -156,27 +173,28 @@ function stand() {
 
 function determineWinner() {
     if (dealerScore > blackjack) {
-        console.log('Dealer busts! Player wins.');
+        messageElement.textContent = 'Dealer busts! Player wins.';
         playerBalance += currentBet * 2;
     } else if (playerScore > blackjack) {
-        console.log('Player busts! Dealer wins.');
+        messageElement.textContent = 'Player busts! Dealer wins.';
     } else if (playerScore > dealerScore) {
-        console.log('Player wins!');
+        messageElement.textContent = 'Player wins!';
         playerBalance += currentBet * 2;
     } else if (playerScore < dealerScore) {
-        console.log('Dealer wins!');
+        messageElement.textContent = 'Dealer wins!';
     } else {
-        console.log('It\'s a tie!');
+        messageElement.textContent = 'It\'s a tie!';
         playerBalance += currentBet;
     }
-    console.log(`Balance: $${playerBalance}`);
+    render();
     currentBet = 0;
     endGame();
 }
 
 function endGame() {
-    // Optionally reset or provide a prompt to start a new game
-    console.log("Game over. Type 'init()' to start a new game.");
+    messageElement.textContent += " Game over. Place a new bet to start another game.";
+    enablePlaceBetButton(); // Enable the button after the game ends
+    enableNewGameButton(); // Enable the button after the game ends 
 }
 
 function getNewShuffledDeck() {
@@ -204,4 +222,3 @@ function buildOriginalDeck() {
 
 // Initialize the game
 init();
-
