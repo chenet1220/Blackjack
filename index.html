@@ -7,35 +7,26 @@
     <link rel="stylesheet" href="css/main.css">
     <script defer src="js/main.js"></script>
 </head>
-
-<body>
-
-    <div class='layout'>
-        <h2>Dealer Hand</h2>
-        <img src="css/card-library/images/spades/spades-A.svg" alt="">
-        <div class="wrapper">
-            <div class="cards" id="dealer">
-            </div>
-        </div>
-        <h2>Player Hand</h2>
-        <img src="css/card-library/images/clubs/clubs-K.svg" alt="">
-        <div class="wrapper">
-            <div class="cards" id="player">
-            </div>
-        </div>
-        <div class="wrapper">
-            <div class="container" id="button-container">
-                <button id="hit">Hit</button>
-                <button id="stand">stand</button>
-            </div>
-        </div>
-        <div class="background" id="notice">
-        <div class="notice">
-            <p></p>
-            <button id="next-hand">Deal Next Hand</button>
-        </div>
-        </div>
+    <h1>Blackjack Game</h1>
+    <div id="player-hand">
+        <h2>Player's Hand</h2>
     </div>
+    <div id="dealer-hand">
+        <h2>Dealer's Hand</h2>
+    </div>
+    <div id="player-total"></div>
+    <div id="dealer-total"></div>
+
+    <div id="controls">
+        <input type="number" id="bet-amount" placeholder="Bet Amount" min="1">
+        <button id="place-bet-button">Place Bet</button>
+        <button id="new-game-button">New Game</button>
+        <button id="hit-button">Hit</button>
+        <button id="stand-button">Stand</button>
+    </div>
+
+    <div id="balance">Balance: $1000</div>
+    <div id="message"></div>
 </body>
   
 </html>
