@@ -42,6 +42,9 @@ function init() {
     console.log("Game initialized.");
     render(); // Ensure initial render
     enablePlaceBetButton(); // Enable the button at game start
+    enableNewGameButton();
+    disableHitButton();     // Disable "Hit" and "Stand" buttons until a bet is placed
+    disableStandButton();
 }
 
 function render() {
@@ -120,7 +123,10 @@ function newGame() {
     render();
     messageElement.textContent = '';
     disablePlaceBetButton(); // Disable the button once a new game starts
+    disableNewGameButton();
+   
 }
+
 
 function disablePlaceBetButton() {
     placeBetButton.disabled = true;
@@ -139,6 +145,22 @@ function enableNewGameButton() {
     newGameButton.disabled = false;
 }
 
+function disableHitButton() {
+    hitButton.disabled = true;
+}
+
+function enableHitButton() {
+    hitButton.disabled = false;
+}
+
+function disableStandButton() {
+    standButton.disabled = true;
+}
+
+function enableStandButton() {
+    standButton.disabled = false;
+}
+
 function placeBet() {
     const betAmount = parseInt(betAmountInput.value);
     if (isNaN(betAmount) || betAmount <= 0 || betAmount > playerBalance) {
@@ -148,6 +170,9 @@ function placeBet() {
     currentBet = betAmount;
     playerBalance -= currentBet;
     disablePlaceBetButton(); // Disable the button after placing a bet
+    disableNewGameButton();
+    enableHitButton();       // Enable the "Hit" and "Stand" buttons
+    enableStandButton();
     newGame(); // Start a new game with the placed bet
 }
 
@@ -169,6 +194,7 @@ function stand() {
         render();
     }
     determineWinner();
+
 }
 
 function determineWinner() {
@@ -195,7 +221,10 @@ function endGame() {
     messageElement.textContent += " Game over. Place a new bet to start another game.";
     enablePlaceBetButton(); // Enable the button after the game ends
     enableNewGameButton(); // Enable the button after the game ends 
+    disableHitButton();
+    disableStandButton();
 }
+
 
 function getNewShuffledDeck() {
     const tempDeck = buildOriginalDeck();
