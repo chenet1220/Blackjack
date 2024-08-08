@@ -165,7 +165,7 @@
 .card.hearts.r03,
 .card.h03,
 .card.♥03 {
-  background-image: url("../images/hearts/hearts-r03.svg"); }
+  background-image: url("./card-library/images/hearts/hearts-r03.svg"); }
 
 .card.hearts.r02,
 .card.h02,
@@ -318,7 +318,7 @@
   background-image: url("./card-library/images/backs/blue.svg"); }
 
 .card.back-red {
-  background-image: url("./card-lbrary/images/backs/red.svg"); }
+  background-image: url("./card-library/images/backs/red.svg"); }
 
 /* Re-orients the cards for different directions. While
    they are symmetric, it's still important to orient
