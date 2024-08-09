@@ -1,4 +1,4 @@
-/*----- constants -----*/
+ /*----- constants -----*/
 const cardSuits = ['s', 'c', 'd', 'h']; // Spades, Clubs, Diamonds, Hearts
 const cardIndex = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
 const blackjack = 21;
@@ -270,4 +270,3 @@ function buildOriginalDeck() {
 // Initialize the game
 startScreenElement.style.display = 'block'; // Show the start screen initially
 gameContainerElement.style.display = 'none'; // Hide the game container initially
-
