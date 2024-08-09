@@ -216,7 +216,7 @@ function determineWinner() {
     } else if (playerScore < dealerScore) {
         messageElement.textContent = 'Dealer wins!';
     } else {
-        messageElement.textContent = 'It\'s a tie!';
+        messageElement.textContent = 'PUSH!';
         playerBalance += currentBet;
     }
     render(); // Render to show the dealer's full hand
