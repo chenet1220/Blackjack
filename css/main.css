@@ -1,4 +1,36 @@
 @charset "UTF-8";
+/* General body styling */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh; /* Ensures the content is centered vertically on the viewport */
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Center the game container */
+#game-container {
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+
+/* Style for the balance and message sections */
+#balance,
+#message {
+  margin: 10px 0;
+}
+
+/* Buttons styling */
+#buttons button {
+  margin: 5px;
+}
+/*_______________________________*/
+
 .card {
   box-sizing: border-box;
   display: inline-block;
