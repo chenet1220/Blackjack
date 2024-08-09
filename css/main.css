@@ -27,13 +27,15 @@
 
 /* General body styling */
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  min-height: 100vh; /* Ensures the content is centered vertically on the viewport */
-  margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
+  background-image: url(https://media.istockphoto.com/id/1345966239/vector/flying-aces-playing-cards-isolated-four-poker-game-objects-realistic-3d-gambling-games.jpg?s=612x612&w=0&k=20&c=1S9OS0kB0xDOph1cZY_8O2Acr-ietn03YINWhMabS8g=);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: 0; /* Ensure there's no default margin */
 }
 
 /* Center the game container */
