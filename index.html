@@ -8,27 +8,32 @@
     <script defer src="js/main.js"></script>
 </head>
 <body>
-    <h1>Blackjack Game</h1>
-    
-    <div id="player-hand">
-        <h2>Player's Hand</h2>
+    <div id="start-screen">
+        <h1>Blackjack Game</h1>
+        <button id="start-game-button">Start Game</button>
     </div>
     
-    <div id="dealer-hand">
-        <h2>Dealer's Hand</h2>
+    <div id="game-container" style="display: none;">
+        <div id="player-hand">
+            <h2>Player's Hand</h2>
+        </div>
+        
+        <div id="dealer-hand">
+            <h2>Dealer's Hand</h2>
+        </div>
+        
+        <div id="player-total">Player Total: 0</div>
+        <div id="dealer-total">Dealer Total: 0</div>
+        
+        <div id="controls">
+            <input type="number" id="bet-amount" placeholder="Enter bet amount">
+            <button id="place-bet-button">Place Bet</button>
+            <button id="hit-button">Hit</button>
+            <button id="stand-button">Stand</button>
+        </div>
+        
+        <div id="balance">Balance: $1000</div>
+        <div id="message"></div>
     </div>
-    
-    <div id="player-total"></div>
-    <div id="dealer-total"></div>
-    
-    <div id="controls">
-        <input type="number" id="bet-amount" placeholder="Enter bet amount">
-        <button id="place-bet-button">Place Bet</button>
-        <button id="hit-button">Hit</button>
-        <button id="stand-button">Stand</button>
-    </div>
-    
-    <div id="balance">Balance: $1000</div>
-    <div id="message"></div>
 </body>
 </html>
