@@ -40,6 +40,7 @@ function init() {
     console.log("Game initialized.");
     render(); // Ensure initial render
     enablePlaceBetButton(); // Enable the button at game start
+    enableBetAmountInput(); // Enable the bet amount input at game start
     disableHitButton();     // Disable "Hit" and "Stand" buttons until a bet is placed
     disableStandButton();
 }
@@ -50,6 +51,15 @@ function disablePlaceBetButton() {
 
 function enablePlaceBetButton() {
     placeBetButton.disabled = false;
+}
+
+function disableBetAmountInput() {
+    betAmountInput.disabled = true; // Disable the input field
+}
+
+function enableBetAmountInput() {
+    betAmountInput.disabled = false; // Enable the input field
+    
 }
 
 function disableHitButton() {
@@ -66,7 +76,8 @@ function disableStandButton() {
 
 function enableStandButton() {
     standButton.disabled = false;
-}    
+}
+
 
 function render() {
     renderHands();
@@ -109,11 +120,6 @@ function dealInitialCards() {
     render();
 }
 
-function updateScores() {
-    playerScore = getScore(playerHand);
-    dealerScore = getScore(dealerHand);
-}
-
 function getScore(hand) {
     let score = 0;
     let aceCount = 0;
@@ -132,6 +138,13 @@ function getScore(hand) {
     return score;
 }
 
+
+
+function updateScores() {
+    playerScore = getScore(playerHand);
+    dealerScore = getScore(dealerHand);
+}
+
 function placeBet() {
     const betAmount = parseInt(betAmountInput.value);
     if (isNaN(betAmount) || betAmount <= 0 || betAmount > playerBalance) {
@@ -141,6 +154,7 @@ function placeBet() {
     currentBet = betAmount;
     playerBalance -= currentBet;
     disablePlaceBetButton(); // Disable the button after placing a bet
+    disableBetAmountInput(); // Disable the bet amount input field
     enableHitButton();       // Enable the "Hit" and "Stand" buttons
     enableStandButton();
     dealInitialCards();     // Deal initial cards after placing a bet
@@ -189,6 +203,7 @@ function determineWinner() {
 function endGame() {
     messageElement.textContent += " Game over. Place a new bet to start another game.";
     enablePlaceBetButton(); // Enable the button after the game ends
+    enableBetAmountInput(); // Re-enable the bet amount input field for a new game
     disableHitButton();
     disableStandButton();
 }
@@ -219,3 +234,4 @@ function buildOriginalDeck() {
 
 // Initialize the game
 init();
+
