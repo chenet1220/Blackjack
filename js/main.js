@@ -1,5 +1,5 @@
  /*----- constants -----*/
-const cardSuits = ['s', 'c', 'd', 'h']; // Spades, Clubs, Diamonds, Hearts
+const cardSuits = ['s', 'c', 'd', 'h']; 
 const cardIndex = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
 const blackjack = 21;
 const dealerStand = 17;
@@ -12,7 +12,7 @@ let playerScore = 0;
 let dealerScore = 0;
 let playerBalance = 1000;
 let currentBet = 0;
-let gameOver = false; // Flag to check if the game is over
+let gameOver = false; 
 
 /*----- cached elements -----*/
 const startScreenElement = document.getElementById('start-screen');
@@ -36,11 +36,6 @@ placeBetButton.addEventListener('click', placeBet);
 startGameButton.addEventListener('click', startGame);
 
 /*----- functions -----*/
-function startGame() {
-    startScreenElement.style.display = 'none'; // Hide the start screen
-    gameContainerElement.style.display = 'block'; // Show the game container
-    init(); // Initialize the game
-}
 
 function init() {
     deck = getNewShuffledDeck();
@@ -48,14 +43,44 @@ function init() {
     dealerHand = [];
     playerScore = 0;
     dealerScore = 0;
-    gameOver = false; // Reset game over flag for new game
+    gameOver = false; 
     console.log("Game initialized.");
-    render(); // Ensure initial render
-    enablePlaceBetButton(); // Enable the button at game start
-    enableBetAmountInput(); // Enable the bet amount input at game start
-    disableHitButton();     // Disable "Hit" and "Stand" buttons until a bet is placed
+    render(); 
+    enablePlaceBetButton(); 
+    enableBetAmountInput(); 
+    disableHitButton();     
     disableStandButton();
 }
+
+startScreenElement.style.display = 'block'; 
+gameContainerElement.style.display = 'none'; 
+
+function startGame() {
+    startScreenElement.style.display = 'none'; 
+    gameContainerElement.style.display = 'block'; 
+    init(); 
+}
+
+function dealInitialCards() {
+    playerHand = []; 
+    dealerHand = []; 
+    for (let i = 0; i < 2; i++) {
+        playerHand.push(deck.pop());
+        dealerHand.push(deck.pop());
+    }
+    updateScores();
+    render(); 
+    
+    if (checkBlackjack(playerHand)) {
+        messageElement.textContent = 'Player hits Blackjack!';
+        playerBalance += currentBet * 2.5; 
+        endGame();
+    } else if (checkBlackjack(dealerHand)) {
+        messageElement.textContent = 'Dealer hits Blackjack! Dealer wins.';
+        endGame();
+    }
+}
+
 
 function disablePlaceBetButton() {
     placeBetButton.disabled = true;
@@ -66,11 +91,11 @@ function enablePlaceBetButton() {
 }
 
 function disableBetAmountInput() {
-    betAmountInput.disabled = true; // Disable the input field
+    betAmountInput.disabled = true; 
 }
 
 function enableBetAmountInput() {
-    betAmountInput.disabled = false; // Enable the input field
+    betAmountInput.disabled = false; 
 }
 
 function disableHitButton() {
@@ -99,47 +124,23 @@ function render() {
 function renderHands() {
     playerHandElement.innerHTML = '';
     dealerHandElement.innerHTML = '';
-
-    // Render player hand
     playerHand.forEach(card => {
         const cardElement = document.createElement('div');
         cardElement.className = `card ${card.face}`;
         cardElement.textContent = card.face;
         playerHandElement.appendChild(cardElement);
     });
-
-    // Render dealer hand
     dealerHand.forEach((card, index) => {
         const cardElement = document.createElement('div');
         cardElement.className = `card ${card.face}`;
         if (index === 0 && !gameOver) {
-            cardElement.classList.add('back'); // Hide the dealer's first card if the game is not over
+            cardElement.classList.add('back'); 
         } else {
-            cardElement.classList.remove('back'); // Show the dealer's card if the game is over
+            cardElement.classList.remove('back'); 
             cardElement.textContent = card.face;
         }
         dealerHandElement.appendChild(cardElement);
     });
-}
-
-function dealInitialCards() {
-    playerHand = []; // Clear player's hand for the new game
-    dealerHand = []; // Clear dealer's hand for the new game
-    for (let i = 0; i < 2; i++) {
-        playerHand.push(deck.pop());
-        dealerHand.push(deck.pop());
-    }
-    updateScores();
-    render(); // Render the initial state with dealer's first card hidden
-    
-    if (checkBlackjack(playerHand)) {
-        messageElement.textContent = 'Player hits Blackjack!';
-        playerBalance += currentBet * 2.5; // Blackjack payout
-        endGame();
-    } else if (checkBlackjack(dealerHand)) {
-        messageElement.textContent = 'Dealer hits Blackjack! Dealer wins.';
-        endGame();
-    }
 }
 
 function getScore(hand) {
@@ -148,10 +149,10 @@ function getScore(hand) {
 
     hand.forEach(card => {
         score += card.value;
-        if (card.face.includes('A')) aceCount += 1; // Count the number of Aces
+        if (card.face.includes('A')) aceCount += 1; 
     });
 
-    // Adjust for Aces
+    
     while (aceCount > 0 && score + 10 <= blackjack) {
         score += 10;
         aceCount -= 1;
@@ -166,7 +167,7 @@ function updateScores() {
 }
 
 function placeBet() {
-    clearMessage(); // Clear the message when placing a bet
+    clearMessage(); 
     const betAmount = parseInt(betAmountInput.value);
     if (isNaN(betAmount) || betAmount <= 0 || betAmount > playerBalance) {
         messageElement.textContent = 'Invalid bet amount.';
@@ -174,16 +175,16 @@ function placeBet() {
     }
     currentBet = betAmount;
     playerBalance -= currentBet;
-    disablePlaceBetButton(); // Disable the button after placing a bet
-    disableBetAmountInput(); // Disable the bet amount input field
-    enableHitButton();       // Enable the "Hit" and "Stand" buttons
+    disablePlaceBetButton(); 
+    disableBetAmountInput(); 
+    enableHitButton();       
     enableStandButton();
-    gameOver = false; // Ensure the game is not over when a new bet is placed
-    dealInitialCards(); // Deal initial cards after placing a bet
+    gameOver = false; 
+    dealInitialCards(); 
 }
 
 function hit() {
-    clearMessage(); // Clear message before action
+    clearMessage(); 
     playerHand.push(deck.pop());
     updateScores();
     render();
@@ -195,7 +196,7 @@ function hit() {
 }
 
 function stand() {
-    clearMessage(); // Clear message before action
+    clearMessage(); 
     while (dealerScore < dealerStand) {
         dealerHand.push(deck.pop());
         updateScores();
@@ -219,21 +220,21 @@ function determineWinner() {
         messageElement.textContent = 'PUSH!';
         playerBalance += currentBet;
     }
-    render(); // Render to show the dealer's full hand
+    render(); 
     currentBet = 0;
     endGame();
 }
 
 function endGame() {
-    gameOver = true; // Set the game over flag
-    if (!messageElement.textContent) { // If no message has been set, add the game over message
+    gameOver = true; 
+    if (!messageElement.textContent) { 
         messageElement.textContent = "Game over. Place a new bet to start another game.";
     }
-    enablePlaceBetButton(); // Enable the button after the game ends
-    enableBetAmountInput(); // Re-enable the bet amount input field for a new game
+    enablePlaceBetButton(); 
+    enableBetAmountInput(); 
     disableHitButton();
     disableStandButton();
-    render(); // Ensure dealer hand is fully visible at the end of the game
+    render(); 
 }
 
 function checkBlackjack(hand) {
@@ -241,7 +242,7 @@ function checkBlackjack(hand) {
 }
 
 function clearMessage() {
-    messageElement.textContent = ''; // Clear the message
+    messageElement.textContent = ''; 
 }
 
 function getNewShuffledDeck() {
@@ -267,6 +268,3 @@ function buildOriginalDeck() {
     return deck;
 }
 
-// Initialize the game
-startScreenElement.style.display = 'block'; // Show the start screen initially
-gameContainerElement.style.display = 'none'; // Hide the game container initially
