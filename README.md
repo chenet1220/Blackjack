@@ -16,7 +16,7 @@ height="750px" width="950px">
 * _Remember_ : The Goal of Blackjack is to achieve a total of 21 or Blackjack through the card values without going over 21 or having a lower value than dealer hand. Going over 21 results in an automatic loss!
 
 ## Live Demo
-You can play the game here: [Blackjack by Chris Chenet](https://chenet1220.github.io/blackjack/)
+You can play the game here: [Blackjack by Chris Chenet](https://github.com/chenet1220/Blackjack.git)
 
 # Technologies Used
 - JavaScript
