@@ -25,7 +25,6 @@
   font-weight: bold;
 }
 
-/* General body styling */
 body {
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
@@ -35,10 +34,9 @@ body {
   background-repeat: no-repeat;
   box-sizing: border-box;
   overflow: hidden;
-  margin: 0; /* Ensure there's no default margin */
+  margin: 0; 
 }
 
-/* Center the game container */
 #game-container {
   text-align: center;
   padding: 20px;
@@ -47,45 +45,35 @@ body {
   background-color: #f9f9f9;
 }
 
-/* Style for the balance and message sections */
 #balance,
 #message {
   margin: 10px 0;
 }
 
-/* Buttons styling */
+
 #buttons button {
   margin: 5px;
 }
-/*_______________________________*/
 
 .card {
   box-sizing: border-box;
   display: inline-block;
   margin: 5px 5px 50px 5px;
   cursor: pointer;
-  /* Set the card's dimensions, and size it relative to
-     it's font size. */
   font-size: inherit;
   width: 4.0em;
   height: 5.5em;
-  /* Add a default background color and border. */
   background-color: #fff;
   border-radius: 0.20em;
   border: 1px solid #c3c3c3;
-  /* Scale and set the background settings. */
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
-  /* "Hide" any text within the element (use text to be
-     simply compliant with screen readers, etc.). */
   text-indent: 100%;
   white-space: nowrap;
   overflow: hidden;
-  /* Default sizes for cards (size based off the font). */
-  /* Optional styles for cards: borderless and drop shadow. */
-  /* Not a card, but a card-shaped outline to represent a
-     droppable place, like an empty pile. */ }
+  }
+  
   .card.small {
     font-size: 12px; }
   .card.large {
@@ -380,11 +368,6 @@ body {
 .card.back-red {
   background-image: url("./card-library/images/backs/red.svg"); }
 
-/* Re-orients the cards for different directions. While
-   they are symmetric, it's still important to orient
-   them correctly in case text or other symbols are
-   layered on them with CSS pseudo-selectors, new
-   classes/rules, etc. */
 .card.west,
 .card.W {
   transform: rotate(90deg);

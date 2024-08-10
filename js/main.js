@@ -1,5 +1,5 @@
- /*----- constants -----*/
-const cardSuits = ['s', 'c', 'd', 'h']; 
+/*----- constants -----*/
+const cardSuits = ['s', 'c', 'd', 'h'];
 const cardIndex = ['02', '03', '04', '05', '06', '07', '08', '09', '10', 'J', 'Q', 'K', 'A'];
 const blackjack = 21;
 const dealerStand = 17;
@@ -12,7 +12,7 @@ let playerScore = 0;
 let dealerScore = 0;
 let playerBalance = 1000;
 let currentBet = 0;
-let gameOver = false; 
+let gameOver = false;
 
 /*----- cached elements -----*/
 const startScreenElement = document.getElementById('start-screen');
@@ -43,44 +43,42 @@ function init() {
     dealerHand = [];
     playerScore = 0;
     dealerScore = 0;
-    gameOver = false; 
-    console.log("Game initialized.");
-    render(); 
-    enablePlaceBetButton(); 
-    enableBetAmountInput(); 
-    disableHitButton();     
+    gameOver = false;
+    render();
+    enablePlaceBetButton();
+    enableBetAmountInput();
+    disableHitButton();
     disableStandButton();
 }
 
-startScreenElement.style.display = 'block'; 
-gameContainerElement.style.display = 'none'; 
+startScreenElement.style.display = 'block';
+gameContainerElement.style.display = 'none';
 
 function startGame() {
-    startScreenElement.style.display = 'none'; 
-    gameContainerElement.style.display = 'block'; 
-    init(); 
+    startScreenElement.style.display = 'none';
+    gameContainerElement.style.display = 'block';
+    init();
 }
 
 function dealInitialCards() {
-    playerHand = []; 
-    dealerHand = []; 
+    playerHand = [];
+    dealerHand = [];
     for (let i = 0; i < 2; i++) {
         playerHand.push(deck.pop());
         dealerHand.push(deck.pop());
     }
     updateScores();
-    render(); 
-    
+    render();
+
     if (checkBlackjack(playerHand)) {
         messageElement.textContent = 'Player hits Blackjack!';
-        playerBalance += currentBet * 2.5; 
+        playerBalance += currentBet * 2.5;
         endGame();
     } else if (checkBlackjack(dealerHand)) {
         messageElement.textContent = 'Dealer hits Blackjack! Dealer wins.';
         endGame();
     }
 }
-
 
 function disablePlaceBetButton() {
     placeBetButton.disabled = true;
@@ -91,11 +89,11 @@ function enablePlaceBetButton() {
 }
 
 function disableBetAmountInput() {
-    betAmountInput.disabled = true; 
+    betAmountInput.disabled = true;
 }
 
 function enableBetAmountInput() {
-    betAmountInput.disabled = false; 
+    betAmountInput.disabled = false;
 }
 
 function disableHitButton() {
@@ -117,7 +115,8 @@ function enableStandButton() {
 function render() {
     renderHands();
     playerTotalElement.textContent = `Player Total: ${playerScore}`;
-    dealerTotalElement.textContent = `Dealer Total: ${dealerScore}`;
+    // Update dealerTotalElement only if the game is over
+    dealerTotalElement.textContent = gameOver ? `Dealer Total: ${dealerScore}` : 'Dealer Total: Hidden';
     balanceElement.textContent = `Balance: $${playerBalance}`;
 }
 
@@ -134,9 +133,9 @@ function renderHands() {
         const cardElement = document.createElement('div');
         cardElement.className = `card ${card.face}`;
         if (index === 0 && !gameOver) {
-            cardElement.classList.add('back'); 
+            cardElement.classList.add('back');
         } else {
-            cardElement.classList.remove('back'); 
+            cardElement.classList.remove('back');
             cardElement.textContent = card.face;
         }
         dealerHandElement.appendChild(cardElement);
@@ -149,10 +148,9 @@ function getScore(hand) {
 
     hand.forEach(card => {
         score += card.value;
-        if (card.face.includes('A')) aceCount += 1; 
+        if (card.face.includes('A')) aceCount += 1;
     });
 
-    
     while (aceCount > 0 && score + 10 <= blackjack) {
         score += 10;
         aceCount -= 1;
@@ -167,7 +165,7 @@ function updateScores() {
 }
 
 function placeBet() {
-    clearMessage(); 
+    clearMessage();
     const betAmount = parseInt(betAmountInput.value);
     if (isNaN(betAmount) || betAmount <= 0 || betAmount > playerBalance) {
         messageElement.textContent = 'Invalid bet amount.';
@@ -175,16 +173,16 @@ function placeBet() {
     }
     currentBet = betAmount;
     playerBalance -= currentBet;
-    disablePlaceBetButton(); 
-    disableBetAmountInput(); 
-    enableHitButton();       
+    disablePlaceBetButton();
+    disableBetAmountInput();
+    enableHitButton();
     enableStandButton();
-    gameOver = false; 
-    dealInitialCards(); 
+    gameOver = false;
+    dealInitialCards();
 }
 
 function hit() {
-    clearMessage(); 
+    clearMessage();
     playerHand.push(deck.pop());
     updateScores();
     render();
@@ -196,7 +194,7 @@ function hit() {
 }
 
 function stand() {
-    clearMessage(); 
+    clearMessage();
     while (dealerScore < dealerStand) {
         dealerHand.push(deck.pop());
         updateScores();
@@ -220,21 +218,22 @@ function determineWinner() {
         messageElement.textContent = 'PUSH!';
         playerBalance += currentBet;
     }
-    render(); 
+    render();
     currentBet = 0;
     endGame();
 }
 
 function endGame() {
-    gameOver = true; 
-    if (!messageElement.textContent) { 
+    gameOver = true;
+    dealerTotalElement.textContent = `Dealer Total: ${dealerScore}`;
+    if (!messageElement.textContent) {
         messageElement.textContent = "Game over. Place a new bet to start another game.";
     }
-    enablePlaceBetButton(); 
-    enableBetAmountInput(); 
+    enablePlaceBetButton();
+    enableBetAmountInput();
     disableHitButton();
     disableStandButton();
-    render(); 
+    render();
 }
 
 function checkBlackjack(hand) {
@@ -242,7 +241,7 @@ function checkBlackjack(hand) {
 }
 
 function clearMessage() {
-    messageElement.textContent = ''; 
+    messageElement.textContent = '';
 }
 
 function getNewShuffledDeck() {
@@ -267,4 +266,3 @@ function buildOriginalDeck() {
     });
     return deck;
 }
-

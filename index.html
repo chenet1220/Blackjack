@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,56 +8,66 @@
     <link rel="stylesheet" href="css/main.css">
     <script defer src="js/main.js"></script>
 </head>
+
 <body>
     <div id="start-screen">
         <h1>Blackjack Game</h1>
         <button id="start-game-button">Start Game</button>
-        
+
         <div id="instructions">
             <h2>How to Play & What to Know!</h2>
-            <p><strong>THE GOAL</strong> of Blackjack is to achieve a total of 21 or Blackjack through the card values without going over 21. Going over 21 results in an automatic loss!</p>
-            
-            <p><strong>START GAME</strong> - Place your bet amount, and both the Player and Dealer will receive 2 cards each.</p>
-            
+            <p><strong>THE GOAL</strong> of Blackjack is to achieve a total of 21 or Blackjack through the card values
+                without going over 21. Going over 21 results in an automatic loss!</p>
+
+            <p><strong>START GAME</strong> - Place your bet amount, and both the Player and Dealer will receive 2 cards
+                each.</p>
+
             <p><strong>PLAYER'S HAND</strong> - You will receive 2 cards face up.</p>
-            
+
             <p><strong>DEALER'S HAND</strong> - The Dealer will have 1 card face up and 1 card face down.</p>
-            
-            <p><strong>CHOICES</strong> - Choose whether to Hit (add a card) or Stand (end your turn and keep your current hand).</p>
-            
-            <p><strong>END TURN</strong> - Once you stand, the Dealer will reveal their hidden card and play their turn.</p>
-            
-            <p><strong>WINNER</strong> - The winner is whoever has Blackjack, a total closer to 21, or does not go over 21 (Ace plus a 10 is an automatic Blackjack).</p>
-            
-            <p><strong>TIE GAME</strong> - If both players have the same total, including 21, it is a Push (Tie Game). No winner!</p>
-            
-            <p><strong>CARD VALUES</strong> - Number cards hold their face value, and Face cards (J, Q, K) are worth 10.</p>
-            
-            <p><strong>AND REMEMBER</strong> - If you decide to gamble, please do so responsibly. Don’t let gambling control you. If you need help, call 1-800-GAMBLER.</p>
+
+            <p><strong>CHOICES</strong> - Choose whether to Hit (add a card) or Stand (end your turn and keep your
+                current hand).</p>
+
+            <p><strong>END TURN</strong> - Once you stand, the Dealer will reveal their hidden card and play their turn.
+            </p>
+
+            <p><strong>WINNER</strong> - The winner is whoever has Blackjack, a total closer to 21, or does not go over
+                21 (Ace plus a 10 is an automatic Blackjack).</p>
+
+            <p><strong>TIE GAME</strong> - If both players have the same total, including 21, it is a Push (Tie Game).
+                No winner!</p>
+
+            <p><strong>CARD VALUES</strong> - Number cards hold their Exact value, and Face cards (J, Q, K) are worth 10
+                A's are 11/1.</p>
+
+            <p><strong>AND REMEMBER</strong> - If you decide to gamble, please do so responsibly. Don’t let gambling
+                control you. If you need help, call 1-800-GAMBLER.</p>
         </div>
     </div>
-    
+
     <div id="game-container" style="display: none;">
         <div id="player-hand">
             <h2>Player's Hand</h2>
         </div>
-        
+
         <div id="dealer-hand">
             <h2>Dealer's Hand</h2>
         </div>
-        
+
         <div id="player-total">Player Total: 0</div>
         <div id="dealer-total">Dealer Total: 0</div>
-        
+
         <div id="controls">
             <input type="number" id="bet-amount" placeholder="Enter bet amount">
             <button id="place-bet-button">Place Bet</button>
             <button id="hit-button">Hit</button>
             <button id="stand-button">Stand</button>
         </div>
-        
+
         <div id="balance">Balance: $1000</div>
         <div id="message"></div>
     </div>
 </body>
+
 </html>
